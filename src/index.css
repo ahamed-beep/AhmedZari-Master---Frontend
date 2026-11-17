@@ -1,0 +1,41 @@
+/* ------------------------------------------------------------------
+   Global base + PRINT styles only. All component styling now comes from
+   Ant Design (see src/theme.js). The print receipt layout is intentionally
+   kept as plain CSS so thermal printing is unaffected by the UI theme.
+   ------------------------------------------------------------------ */
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  background: #f4f7f5;
+  color: #1b2a22;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Money color helpers (receivable = red, advance/received = green) */
+.text-red { color: #dc2626 !important; }
+.text-green { color: #16a34a !important; }
+
+/* Slim scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #cbd5cf; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #aebcb4; }
+
+/* ============================================================
+   PRINT BILL — thermal receipt. Hidden on screen, shown on print.
+   ============================================================ */
+.print-area { display: none; }
+@media print {
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area {
+    display: block; position: absolute; top: 0; left: 0; width: 100%;
+    padding: 10px; color: #000; background: #fff;
+  }
+}
+.bill-header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
+.bill-header h2 { color: #000; margin: 0; font-family: Georgia, serif; }
+.bill-table { width: 100%; border-collapse: collapse; }
+.bill-table td, .bill-table th { color: #000; border-bottom: 1px solid #999; font-size: 12px; padding: 4px; text-align: left; }
